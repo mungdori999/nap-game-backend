@@ -1,6 +1,9 @@
 package com.mungdori.napgame.domain.member;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,23 +13,17 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Member {
+public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String loginId;
+    private int level;
 
-    private String passwordHash;
-
-    private LocalDateTime createdAt;
+    private int min_point;
 
     private LocalDateTime updatedAt;
 
     private LocalDateTime deactivatedAt;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
 }
