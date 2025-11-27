@@ -8,7 +8,7 @@ public class Member {
 
     private String nickname;
 
-    private String email;
+    private String loginId;
 
     private String passwordHash;
 
