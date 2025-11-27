@@ -1,0 +1,48 @@
+package com.mungdori.napgame.adapter.security.config;
+
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        // CSRF 보안 필터 disable
+        http
+                .csrf(AbstractHttpConfigurer::disable);
+
+        // CORS 설정
+
+        // 기본 Form 기반 인증 필터들 disable
+        http
+                .formLogin(AbstractHttpConfigurer::disable);
+
+        // 기본 Basic 인증 필터 disable
+        http
+                .httpBasic(AbstractHttpConfigurer::disable);
+
+        // 인가
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST,"/api/member/**").permitAll()
+                        .anyRequest().authenticated());
+
+
+        // 세션 필터 설정 (STATELESS)
+        http
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        return http.build();
+    }
+}
