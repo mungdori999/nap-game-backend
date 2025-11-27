@@ -1,0 +1,14 @@
+spring:
+  application.name: nap
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  docker:
+    compose:
+      lifecycle-management: start_only
+
+
+  
